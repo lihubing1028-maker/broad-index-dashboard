@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>📊 量化分析看板</title>
+<style>
+  :root{
+    --bg:#0b0e17;
+    --card:rgba(255,255,255,.045);
+    --card-hover:rgba(255,255,255,.09);
+    --border:rgba(255,255,255,.09);
+    --border-hover:rgba(124,140,255,.55);
+    --text:#e8ecf4;
+    --text-dim:#8b93a7;
+    --accent:#7c8cff;
+    --accent2:#4fd1c5;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:"HarmonyOS Sans","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  /* ── 流动光斑背景 ── */
+  .glow{position:fixed;border-radius:50%;filter:blur(120px);opacity:.35;z-index:-1;pointer-events:none}
+  .glow1{width:520px;height:520px;background:#5b3df5;top:-180px;left:-120px;animation:drift 18s ease-in-out infinite alternate}
+  .glow2{width:460px;height:460px;background:#0e7f74;bottom:-160px;right:-100px;animation:drift 22s ease-in-out infinite alternate-reverse}
+  .glow3{width:340px;height:340px;background:#3b6ef5;top:40%;left:55%;animation:drift 26s ease-in-out infinite alternate}
+  @keyframes drift{
+    from{transform:translate(0,0) scale(1)}
+    to{transform:translate(60px,-50px) scale(1.15)}
+  }
+
+  .wrap{max-width:1080px;margin:0 auto;padding:64px 24px 80px}
+
+  /* ── 头部 ── */
+  header{text-align:center;margin-bottom:56px}
+  .badge{
+    display:inline-block;font-size:.75rem;letter-spacing:.18em;color:var(--accent2);
+    border:1px solid rgba(79,209,197,.3);border-radius:999px;
+    padding:6px 16px;margin-bottom:18px;background:rgba(79,209,197,.06);
+  }
+  h1{
+    font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;letter-spacing:.02em;
+    background:linear-gradient(120deg,#e8ecf4 30%,#7c8cff 60%,#4fd1c5);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .subtitle{color:var(--text-dim);margin-top:14px;font-size:.95rem}
+
+  /* ── 分组标题 ── */
+  .section-title{
+    display:flex;align-items:center;gap:12px;
+    color:var(--text-dim);font-size:.8rem;letter-spacing:.22em;
+    margin:44px 0 20px;text-transform:uppercase;
+  }
+  .section-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+
+  /* ── 卡片网格 ── */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+  a.card{
+    position:relative;display:block;
+    background:var(--card);border:1px solid var(--border);
+    border-radius:16px;padding:22px 24px;
+    text-decoration:none;color:var(--text);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    transition:transform .28s cubic-bezier(.2,.8,.2,1),border-color .28s,background .28s,box-shadow .28s;
+  }
+  a.card:hover{
+    transform:translateY(-5px);
+    background:var(--card-hover);
+    border-color:var(--border-hover);
+    box-shadow:0 14px 40px -12px rgba(124,140,255,.35),0 0 0 1px rgba(124,140,255,.15) inset;
+  }
+  .card .icon{font-size:1.6rem;margin-bottom:12px;display:block}
+  .card .name{font-size:1.02rem;font-weight:600;margin-bottom:6px}
+  .card .desc{font-size:.82rem;color:var(--text-dim);line-height:1.55}
+  .card .go{
+    position:absolute;top:20px;right:20px;color:var(--accent);
+    opacity:0;transform:translateX(-6px);transition:.28s;font-size:.95rem;
+  }
+  a.card:hover .go{opacity:1;transform:translateX(0)}
+
+  footer{margin-top:64px;text-align:center;color:var(--text-dim);font-size:.78rem;opacity:.7}
+  @media (max-width:640px){.wrap{padding:40px 16px 60px}}
+</style>
+</head>
+<body>
+  <div class="glow glow1"></div>
+  <div class="glow glow2"></div>
+  <div class="glow glow3"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="badge">QUANT DASHBOARD</div>
+      <h1>📊 量化分析看板</h1>
+      <p class="subtitle">宽基指数 · 板块基金 · 股指期货 · 黄金 &nbsp;|&nbsp; 每个交易日自动更新</p>
+    </header>
+
+    <div class="section-title">宽基指数</div>
+    <div class="grid">
+      <a class="card" href="etf_flow_dashboard.html">
+        <span class="go">→</span><span class="icon">💰</span>
+        <div class="name">ETF 资金流向看板</div>
+        <div class="desc">45 只宽基 ETF 资金流监测，洞察主力动向</div>
+      </a>
+      <a class="card" href="stock_8indicators_matrix.html">
+        <span class="go">→</span><span class="icon">📈</span>
+        <div class="name">八大指标矩阵</div>
+        <div class="desc">MACD / RSI / KDJ 等八大技术指标全景</div>
+      </a>
+      <a class="card" href="stock_scorematrix.html">
+        <span class="go">→</span><span class="icon">🌡️</span>
+        <div class="name">风险评分矩阵</div>
+        <div class="desc">过热评分，从冰点到极端风险六档分级</div>
+      </a>
+      <a class="card" href="stock_zigzag_signal_analyzer.html">
+        <span class="go">→</span><span class="icon">〰️</span>
+        <div class="name">波段信号分析</div>
+        <div class="desc">ZigZag 摆动指标，识别波段拐点</div>
+      </a>
+      <a class="card" href="index_return_calendar.html">
+        <span class="go">→</span><span class="icon">📅</span>
+        <div class="name">指数收益日历</div>
+        <div class="desc">按日历视图回顾各指数历史表现</div>
+      </a>
+    </div>
+
+    <div class="section-title">板块基金</div>
+    <div class="grid">
+      <a class="card" href="fund_indicators_matrix.html">
+        <span class="go">→</span><span class="icon">🧮</span>
+        <div class="name">基金指标矩阵</div>
+        <div class="desc">持仓基金八大技术指标一览</div>
+      </a>
+      <a class="card" href="fund_score_matrix.html">
+        <span class="go">→</span><span class="icon">🎯</span>
+        <div class="name">基金评分矩阵</div>
+        <div class="desc">多维度风险评分横向对比</div>
+      </a>
+      <a class="card" href="fund_riskrank_percentile.html">
+        <span class="go">→</span><span class="icon">📊</span>
+        <div class="name">风险排名与分位</div>
+        <div class="desc">历史分位数定位当前风险水平</div>
+      </a>
+      <a class="card" href="holdings_calendar.html">
+        <span class="go">→</span><span class="icon">🗓️</span>
+        <div class="name">持仓日历</div>
+        <div class="desc">日历形式追踪持仓每日状态</div>
+      </a>
+    </div>
+
+    <div class="section-title">衍生品 · 贵金属</div>
+    <div class="grid">
+      <a class="card" href="cffex_net_position.html">
+        <span class="go">→</span><span class="icon">⚖️</span>
+        <div class="name">股指期货净持仓</div>
+        <div class="desc">中金所前 20 会员净持仓变化</div>
+      </a>
+      <a class="card" href="gold_ma_slopes_interactive.html">
+        <span class="go">→</span><span class="icon">🥇</span>
+        <div class="name">黄金均线斜率</div>
+        <div class="desc">COMEX 黄金多周期均线与斜率分析</div>
+      </a>
+    </div>
+
+    <footer>仅供个人量化学习与技术交流 · 不构成投资建议</footer>
+  </div>
+</body>
+</html>
