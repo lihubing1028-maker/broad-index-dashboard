@@ -30,14 +30,14 @@
 - 宽基 hkHSI 无行情
 - 宽基 hkHSTECH 无行情
 - 宽基 sh000300 无行情
+- 宽基 sz399001 无行情
 - 宽基 sz399006 无行情
 - 宽基 sh000016 无行情
 - 宽基 sh000905 无行情
-- 宽基 sz399001 无行情
 - ETF: 未找到 etf_flow.parquet, 资金流板块跳过
 - 基金: 缺 fund_nav_history.csv 或 funds_universe_example.csv
 - 黄金: 取数失败(AttributeError)
 
 ---
-生成时间 2026-11-22 16:04　数据源 AKShare。
+生成时间 2026-11-23 01:06　数据源 AKShare。
 本页为技术观察，不构成任何投资建议。
